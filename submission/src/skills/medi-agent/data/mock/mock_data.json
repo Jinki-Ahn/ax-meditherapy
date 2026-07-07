@@ -1,0 +1,964 @@
+{
+  "_comment": "모의 생성 데이터 (generate_mock_data.py --seed 42). 전부 가상.",
+  "communities": [
+    {
+      "id": "com_mil_01",
+      "name": "제1지역 부대 생활권 (가상)",
+      "slot_type": "military",
+      "measurement_unit": "부대",
+      "wom_density": 0.77,
+      "population": 5000,
+      "contamination_risk": 0.27,
+      "post_exit_channel": "coupang",
+      "prior_score": 0.5,
+      "touchpoints": [
+        {
+          "id": "tp_px_011",
+          "name": "PX 01-1지점",
+          "type": "px_store",
+          "pair_group": "pg_06",
+          "weekly_traffic": 1350,
+          "carried_product_ids": [
+            "pr_001",
+            "pr_002"
+          ]
+        },
+        {
+          "id": "tp_px_012",
+          "name": "PX 01-2지점",
+          "type": "px_store",
+          "pair_group": "pg_12",
+          "weekly_traffic": 2950,
+          "carried_product_ids": []
+        }
+      ]
+    },
+    {
+      "id": "com_mil_02",
+      "name": "제2지역 부대 생활권 (가상)",
+      "slot_type": "military",
+      "measurement_unit": "부대",
+      "wom_density": 0.81,
+      "population": 9000,
+      "contamination_risk": 0.08,
+      "post_exit_channel": "coupang",
+      "prior_score": 0.5,
+      "touchpoints": [
+        {
+          "id": "tp_px_021",
+          "name": "PX 02-1지점",
+          "type": "px_store",
+          "pair_group": "pg_09",
+          "weekly_traffic": 1950,
+          "carried_product_ids": []
+        },
+        {
+          "id": "tp_px_022",
+          "name": "PX 02-2지점",
+          "type": "px_store",
+          "pair_group": "pg_03",
+          "weekly_traffic": 850,
+          "carried_product_ids": [
+            "pr_001",
+            "pr_002"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "com_mil_03",
+      "name": "제3지역 부대 생활권 (가상)",
+      "slot_type": "military",
+      "measurement_unit": "부대",
+      "wom_density": 0.73,
+      "population": 5000,
+      "contamination_risk": 0.22,
+      "post_exit_channel": "coupang",
+      "prior_score": 0.5,
+      "touchpoints": [
+        {
+          "id": "tp_px_031",
+          "name": "PX 03-1지점",
+          "type": "px_store",
+          "pair_group": "pg_11",
+          "weekly_traffic": 2850,
+          "carried_product_ids": [
+            "pr_001"
+          ]
+        },
+        {
+          "id": "tp_px_032",
+          "name": "PX 03-2지점",
+          "type": "px_store",
+          "pair_group": "pg_09",
+          "weekly_traffic": 2300,
+          "carried_product_ids": [
+            "pr_001",
+            "pr_002"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "com_mil_04",
+      "name": "제4지역 부대 생활권 (가상)",
+      "slot_type": "military",
+      "measurement_unit": "부대",
+      "wom_density": 0.71,
+      "population": 7000,
+      "contamination_risk": 0.29,
+      "post_exit_channel": "coupang",
+      "prior_score": 0.5,
+      "touchpoints": [
+        {
+          "id": "tp_px_041",
+          "name": "PX 04-1지점",
+          "type": "px_store",
+          "pair_group": "pg_01",
+          "weekly_traffic": 600,
+          "carried_product_ids": [
+            "pr_001"
+          ]
+        },
+        {
+          "id": "tp_px_042",
+          "name": "PX 04-2지점",
+          "type": "px_store",
+          "pair_group": "pg_04",
+          "weekly_traffic": 1100,
+          "carried_product_ids": [
+            "pr_001"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "com_mil_05",
+      "name": "제5지역 부대 생활권 (가상)",
+      "slot_type": "military",
+      "measurement_unit": "부대",
+      "wom_density": 0.67,
+      "population": 6000,
+      "contamination_risk": 0.11,
+      "post_exit_channel": "coupang",
+      "prior_score": 0.5,
+      "touchpoints": [
+        {
+          "id": "tp_px_051",
+          "name": "PX 05-1지점",
+          "type": "px_store",
+          "pair_group": "pg_12",
+          "weekly_traffic": 3000,
+          "carried_product_ids": [
+            "pr_001",
+            "pr_002"
+          ]
+        },
+        {
+          "id": "tp_px_052",
+          "name": "PX 05-2지점",
+          "type": "px_store",
+          "pair_group": "pg_03",
+          "weekly_traffic": 850,
+          "carried_product_ids": [
+            "pr_001",
+            "pr_002"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "com_mil_06",
+      "name": "제6지역 부대 생활권 (가상)",
+      "slot_type": "military",
+      "measurement_unit": "부대",
+      "wom_density": 0.68,
+      "population": 7500,
+      "contamination_risk": 0.23,
+      "post_exit_channel": "coupang",
+      "prior_score": 0.5,
+      "touchpoints": [
+        {
+          "id": "tp_px_061",
+          "name": "PX 06-1지점",
+          "type": "px_store",
+          "pair_group": "pg_01",
+          "weekly_traffic": 700,
+          "carried_product_ids": [
+            "pr_001"
+          ]
+        },
+        {
+          "id": "tp_px_062",
+          "name": "PX 06-2지점",
+          "type": "px_store",
+          "pair_group": "pg_10",
+          "weekly_traffic": 2300,
+          "carried_product_ids": []
+        }
+      ]
+    },
+    {
+      "id": "com_mil_07",
+      "name": "제7지역 부대 생활권 (가상)",
+      "slot_type": "military",
+      "measurement_unit": "부대",
+      "wom_density": 0.87,
+      "population": 5500,
+      "contamination_risk": 0.22,
+      "post_exit_channel": "coupang",
+      "prior_score": 0.5,
+      "touchpoints": [
+        {
+          "id": "tp_px_071",
+          "name": "PX 07-1지점",
+          "type": "px_store",
+          "pair_group": "pg_10",
+          "weekly_traffic": 2600,
+          "carried_product_ids": [
+            "pr_001"
+          ]
+        },
+        {
+          "id": "tp_px_072",
+          "name": "PX 07-2지점",
+          "type": "px_store",
+          "pair_group": "pg_07",
+          "weekly_traffic": 1750,
+          "carried_product_ids": [
+            "pr_001"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "com_mil_08",
+      "name": "제8지역 부대 생활권 (가상)",
+      "slot_type": "military",
+      "measurement_unit": "부대",
+      "wom_density": 0.8,
+      "population": 5000,
+      "contamination_risk": 0.25,
+      "post_exit_channel": "coupang",
+      "prior_score": 0.5,
+      "touchpoints": [
+        {
+          "id": "tp_px_081",
+          "name": "PX 08-1지점",
+          "type": "px_store",
+          "pair_group": "pg_06",
+          "weekly_traffic": 1500,
+          "carried_product_ids": [
+            "pr_001"
+          ]
+        },
+        {
+          "id": "tp_px_082",
+          "name": "PX 08-2지점",
+          "type": "px_store",
+          "pair_group": "pg_05",
+          "weekly_traffic": 1300,
+          "carried_product_ids": [
+            "pr_001"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "com_mil_09",
+      "name": "제9지역 부대 생활권 (가상)",
+      "slot_type": "military",
+      "measurement_unit": "부대",
+      "wom_density": 0.68,
+      "population": 8500,
+      "contamination_risk": 0.24,
+      "post_exit_channel": "coupang",
+      "prior_score": 0.5,
+      "touchpoints": [
+        {
+          "id": "tp_px_091",
+          "name": "PX 09-1지점",
+          "type": "px_store",
+          "pair_group": "pg_08",
+          "weekly_traffic": 1750,
+          "carried_product_ids": [
+            "pr_001",
+            "pr_002"
+          ]
+        },
+        {
+          "id": "tp_px_092",
+          "name": "PX 09-2지점",
+          "type": "px_store",
+          "pair_group": "pg_07",
+          "weekly_traffic": 1700,
+          "carried_product_ids": [
+            "pr_001",
+            "pr_002"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "com_mil_10",
+      "name": "제10지역 부대 생활권 (가상)",
+      "slot_type": "military",
+      "measurement_unit": "부대",
+      "wom_density": 0.64,
+      "population": 12000,
+      "contamination_risk": 0.26,
+      "post_exit_channel": "coupang",
+      "prior_score": 0.5,
+      "touchpoints": [
+        {
+          "id": "tp_px_101",
+          "name": "PX 10-1지점",
+          "type": "px_store",
+          "pair_group": "pg_02",
+          "weekly_traffic": 800,
+          "carried_product_ids": [
+            "pr_001"
+          ]
+        },
+        {
+          "id": "tp_px_102",
+          "name": "PX 10-2지점",
+          "type": "px_store",
+          "pair_group": "pg_04",
+          "weekly_traffic": 1100,
+          "carried_product_ids": [
+            "pr_001"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "com_mil_11",
+      "name": "제11지역 부대 생활권 (가상)",
+      "slot_type": "military",
+      "measurement_unit": "부대",
+      "wom_density": 0.64,
+      "population": 8500,
+      "contamination_risk": 0.16,
+      "post_exit_channel": "coupang",
+      "prior_score": 0.5,
+      "touchpoints": [
+        {
+          "id": "tp_px_111",
+          "name": "PX 11-1지점",
+          "type": "px_store",
+          "pair_group": "pg_11",
+          "weekly_traffic": 2600,
+          "carried_product_ids": [
+            "pr_001"
+          ]
+        },
+        {
+          "id": "tp_px_112",
+          "name": "PX 11-2지점",
+          "type": "px_store",
+          "pair_group": "pg_05",
+          "weekly_traffic": 1300,
+          "carried_product_ids": [
+            "pr_001"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "com_mil_12",
+      "name": "제12지역 부대 생활권 (가상)",
+      "slot_type": "military",
+      "measurement_unit": "부대",
+      "wom_density": 0.84,
+      "population": 11000,
+      "contamination_risk": 0.07,
+      "post_exit_channel": "coupang",
+      "prior_score": 0.5,
+      "touchpoints": [
+        {
+          "id": "tp_px_121",
+          "name": "PX 12-1지점",
+          "type": "px_store",
+          "pair_group": "pg_02",
+          "weekly_traffic": 700,
+          "carried_product_ids": [
+            "pr_001"
+          ]
+        },
+        {
+          "id": "tp_px_122",
+          "name": "PX 12-2지점",
+          "type": "px_store",
+          "pair_group": "pg_08",
+          "weekly_traffic": 1850,
+          "carried_product_ids": [
+            "pr_001",
+            "pr_002"
+          ]
+        }
+      ]
+    }
+  ],
+  "creators": [
+    {
+      "id": "cr_001",
+      "name": "크리에이터 001 (가상)",
+      "creator_type": "veteran_vlogger",
+      "platform": "youtube",
+      "reach_scope": "national",
+      "reach_size": 15828,
+      "avg_views": 4087,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 180000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_002",
+      "name": "크리에이터 002 (가상)",
+      "creator_type": "px_item_reviewer",
+      "platform": "youtube_shorts",
+      "reach_scope": "national",
+      "reach_size": 22429,
+      "avg_views": 37380,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 153000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_003",
+      "name": "크리에이터 003 (가상)",
+      "creator_type": "px_item_reviewer",
+      "platform": "youtube_shorts",
+      "reach_scope": "national",
+      "reach_size": 100981,
+      "avg_views": 102668,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 1210000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_004",
+      "name": "크리에이터 004 (가상)",
+      "creator_type": "px_item_reviewer",
+      "platform": "youtube_shorts",
+      "reach_scope": "national",
+      "reach_size": 7203,
+      "avg_views": 15161,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 57000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_005",
+      "name": "크리에이터 005 (가상)",
+      "creator_type": "veteran_vlogger",
+      "platform": "youtube",
+      "reach_scope": "national",
+      "reach_size": 171830,
+      "avg_views": 76346,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 872000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_006",
+      "name": "크리에이터 006 (가상)",
+      "creator_type": "px_item_reviewer",
+      "platform": "youtube_shorts",
+      "reach_scope": "national",
+      "reach_size": 66563,
+      "avg_views": 73683,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 631000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_007",
+      "name": "크리에이터 007 (가상)",
+      "creator_type": "veteran_vlogger",
+      "platform": "youtube",
+      "reach_scope": "national",
+      "reach_size": 30200,
+      "avg_views": 14542,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 336000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_008",
+      "name": "크리에이터 008 (가상)",
+      "creator_type": "active_duty",
+      "platform": "youtube",
+      "reach_scope": "local",
+      "reach_size": 36355,
+      "avg_views": 16906,
+      "commercially_eligible": false,
+      "brand_safety_flags": [
+        "active_duty_no_commerce"
+      ],
+      "cost_per_seeding": 0,
+      "prior_score": 0.0
+    },
+    {
+      "id": "cr_009",
+      "name": "크리에이터 009 (가상)",
+      "creator_type": "veteran_vlogger",
+      "platform": "youtube",
+      "reach_scope": "national",
+      "reach_size": 62858,
+      "avg_views": 10128,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 649000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_010",
+      "name": "크리에이터 010 (가상)",
+      "creator_type": "px_item_reviewer",
+      "platform": "youtube_shorts",
+      "reach_scope": "national",
+      "reach_size": 90761,
+      "avg_views": 54555,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 659000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_011",
+      "name": "크리에이터 011 (가상)",
+      "creator_type": "veteran_vlogger",
+      "platform": "youtube",
+      "reach_scope": "national",
+      "reach_size": 76075,
+      "avg_views": 9370,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 847000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_012",
+      "name": "크리에이터 012 (가상)",
+      "creator_type": "enlistment_prep",
+      "platform": "youtube",
+      "reach_scope": "national",
+      "reach_size": 10460,
+      "avg_views": 1335,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 107000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_013",
+      "name": "크리에이터 013 (가상)",
+      "creator_type": "enlistment_prep",
+      "platform": "youtube",
+      "reach_scope": "national",
+      "reach_size": 12167,
+      "avg_views": 3892,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 83000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_014",
+      "name": "크리에이터 014 (가상)",
+      "creator_type": "enlistment_prep",
+      "platform": "youtube",
+      "reach_scope": "national",
+      "reach_size": 31239,
+      "avg_views": 9862,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 315000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_015",
+      "name": "크리에이터 015 (가상)",
+      "creator_type": "veteran_vlogger",
+      "platform": "youtube",
+      "reach_scope": "national",
+      "reach_size": 54821,
+      "avg_views": 16831,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 320000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_016",
+      "name": "크리에이터 016 (가상)",
+      "creator_type": "veteran_vlogger",
+      "platform": "youtube",
+      "reach_scope": "national",
+      "reach_size": 19786,
+      "avg_views": 3799,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 129000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_017",
+      "name": "크리에이터 017 (가상)",
+      "creator_type": "veteran_vlogger",
+      "platform": "youtube",
+      "reach_scope": "national",
+      "reach_size": 47217,
+      "avg_views": 21822,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 520000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_018",
+      "name": "크리에이터 018 (가상)",
+      "creator_type": "veteran_vlogger",
+      "platform": "youtube",
+      "reach_scope": "national",
+      "reach_size": 10699,
+      "avg_views": 1986,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 63000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_019",
+      "name": "크리에이터 019 (가상)",
+      "creator_type": "active_duty",
+      "platform": "youtube",
+      "reach_scope": "local",
+      "reach_size": 44712,
+      "avg_views": 18503,
+      "commercially_eligible": false,
+      "brand_safety_flags": [
+        "active_duty_no_commerce"
+      ],
+      "cost_per_seeding": 0,
+      "prior_score": 0.0
+    },
+    {
+      "id": "cr_020",
+      "name": "크리에이터 020 (가상)",
+      "creator_type": "veteran_vlogger",
+      "platform": "youtube",
+      "reach_scope": "national",
+      "reach_size": 12163,
+      "avg_views": 3277,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 100000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_021",
+      "name": "크리에이터 021 (가상)",
+      "creator_type": "px_item_reviewer",
+      "platform": "youtube_shorts",
+      "reach_scope": "national",
+      "reach_size": 12862,
+      "avg_views": 16009,
+      "commercially_eligible": true,
+      "brand_safety_flags": [
+        "past_controversy"
+      ],
+      "cost_per_seeding": 141000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_022",
+      "name": "크리에이터 022 (가상)",
+      "creator_type": "veteran_vlogger",
+      "platform": "youtube",
+      "reach_scope": "national",
+      "reach_size": 15253,
+      "avg_views": 4099,
+      "commercially_eligible": true,
+      "brand_safety_flags": [
+        "past_controversy"
+      ],
+      "cost_per_seeding": 106000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_023",
+      "name": "크리에이터 023 (가상)",
+      "creator_type": "veteran_vlogger",
+      "platform": "youtube",
+      "reach_scope": "national",
+      "reach_size": 117423,
+      "avg_views": 52199,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 1039000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_024",
+      "name": "크리에이터 024 (가상)",
+      "creator_type": "veteran_vlogger",
+      "platform": "youtube",
+      "reach_scope": "national",
+      "reach_size": 69270,
+      "avg_views": 20383,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 449000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_025",
+      "name": "크리에이터 025 (가상)",
+      "creator_type": "px_item_reviewer",
+      "platform": "youtube_shorts",
+      "reach_scope": "national",
+      "reach_size": 12121,
+      "avg_views": 29964,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 83000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_026",
+      "name": "크리에이터 026 (가상)",
+      "creator_type": "enlistment_prep",
+      "platform": "youtube",
+      "reach_scope": "national",
+      "reach_size": 32196,
+      "avg_views": 15548,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 385000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_027",
+      "name": "크리에이터 027 (가상)",
+      "creator_type": "px_item_reviewer",
+      "platform": "youtube_shorts",
+      "reach_scope": "national",
+      "reach_size": 54120,
+      "avg_views": 62981,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 637000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_028",
+      "name": "크리에이터 028 (가상)",
+      "creator_type": "px_item_reviewer",
+      "platform": "youtube_shorts",
+      "reach_scope": "national",
+      "reach_size": 47028,
+      "avg_views": 33324,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 427000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_029",
+      "name": "크리에이터 029 (가상)",
+      "creator_type": "active_duty",
+      "platform": "youtube_shorts",
+      "reach_scope": "local",
+      "reach_size": 69310,
+      "avg_views": 168110,
+      "commercially_eligible": false,
+      "brand_safety_flags": [
+        "active_duty_no_commerce"
+      ],
+      "cost_per_seeding": 0,
+      "prior_score": 0.0
+    },
+    {
+      "id": "cr_030",
+      "name": "크리에이터 030 (가상)",
+      "creator_type": "veteran_vlogger",
+      "platform": "youtube",
+      "reach_scope": "national",
+      "reach_size": 57055,
+      "avg_views": 11073,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 333000,
+      "prior_score": 0.5
+    }
+  ],
+  "products": [
+    {
+      "id": "pr_001",
+      "name": "옴므 올인원 크림 (가상)",
+      "category": "skincare",
+      "price_krw": 18000,
+      "consumption_cycle_days": 45,
+      "appeal_points": [
+        {
+          "id": "ap_001",
+          "claim": "세안 후 이거 하나로 끝"
+        },
+        {
+          "id": "ap_002",
+          "claim": "환절기 각질 진정"
+        }
+      ],
+      "forbidden_claims": [
+        "피부 질환 치료",
+        "여드름 완치",
+        "부대·군 공식 추천 암시"
+      ],
+      "required_disclosure": [
+        "유료 광고 포함 표기",
+        "공정위 추천·보증 심사지침 준수 문구"
+      ],
+      "available_channels": [
+        "coupang",
+        "oliveyoung",
+        "px"
+      ]
+    },
+    {
+      "id": "pr_002",
+      "name": "쿨링 폼 클렌저 (가상)",
+      "category": "skincare",
+      "price_krw": 12000,
+      "consumption_cycle_days": 60,
+      "appeal_points": [
+        {
+          "id": "ap_003",
+          "claim": "훈련 후 유분 한 번에"
+        },
+        {
+          "id": "ap_004",
+          "claim": "쿨링감으로 여름 세안"
+        }
+      ],
+      "forbidden_claims": [
+        "피부 질환 치료",
+        "부대·군 공식 추천 암시"
+      ],
+      "required_disclosure": [
+        "유료 광고 포함 표기"
+      ],
+      "available_channels": [
+        "coupang",
+        "px"
+      ]
+    }
+  ],
+  "conversion_signals": [
+    {
+      "id": "sig_search",
+      "name": "검색 리프트",
+      "phase": "leading",
+      "source": "search_trend",
+      "measurement": "treatment_vs_control_lift",
+      "window": {
+        "type": "fixed_days",
+        "days": 14
+      },
+      "weight": 0.4,
+      "predictive_validity": null,
+      "min_sample": 4,
+      "acquisition": {
+        "method": "검색 트렌드 API(네이버 데이터랩 등) 지역 단위 시계열. 부대 단위 분해는 불가 — 지역·시차 조합으로 근사",
+        "granularity": "region_daily",
+        "confidence": "proxy",
+        "fallback": "쿠팡 검색량(브랜드 스토어 유입 키워드) 시계열"
+      },
+      "control_definition": "시차 설계 — 게시가 아직 닿지 않은 기간(pre-period) 및 후발 게시 지역의 동일 검색어 시계열"
+    },
+    {
+      "id": "sig_code",
+      "name": "추적 코드 첫 구매",
+      "phase": "leading",
+      "source": "tracking_code",
+      "measurement": "count",
+      "window": {
+        "type": "fixed_days",
+        "days": 14
+      },
+      "weight": 0.35,
+      "predictive_validity": null,
+      "min_sample": 10,
+      "acquisition": {
+        "method": "크리에이터별 고유 추적 코드(쿠폰/링크) 사용 집계 — 자사 확보 데이터",
+        "granularity": "per_code_daily",
+        "confidence": "confirmed"
+      }
+    },
+    {
+      "id": "sig_sellthrough",
+      "name": "PX 셀스루",
+      "phase": "leading",
+      "source": "px_sellthrough",
+      "measurement": "treatment_vs_control_lift",
+      "window": {
+        "type": "fixed_days",
+        "days": 14
+      },
+      "weight": 0.25,
+      "predictive_validity": null,
+      "min_sample": 2,
+      "acquisition": {
+        "method": "부대별 발주·재발주량 프록시(위탁판매 구조상 부대 단위 발주 + 낮은 재고율 → 발주≈판매 가정). 품목별 전국 정산 리포트(월별, 확보 확실)로 총량 보정",
+        "granularity": "store_weekly",
+        "confidence": "proxy",
+        "fallback": "국군복지단 협의 시 지점별 판매 리포트(퇴출심사에서 상위 20개점 실적 산출 전례 있음 — 협상 조건부)"
+      },
+      "control_definition": "pair_group 내 대조 지점(프로모션·샘플링 미실시)의 동일 기간 발주량"
+    },
+    {
+      "id": "sig_repurchase",
+      "name": "재구매",
+      "phase": "lagging",
+      "source": "repurchase",
+      "measurement": "rate",
+      "window": {
+        "type": "after_consumption_cycle",
+        "cycle_multiplier": 1.5
+      },
+      "min_sample": 20,
+      "acquisition": {
+        "method": "추적 코드 재사용 + 자사 판매 채널(쿠팡 스토어 등) 주문 데이터의 재구매 식별",
+        "granularity": "per_customer",
+        "confidence": "proxy",
+        "fallback": "재구매 할인 코드 발행으로 식별률 보강"
+      }
+    },
+    {
+      "id": "sig_review",
+      "name": "후기",
+      "phase": "lagging",
+      "source": "review",
+      "measurement": "count",
+      "window": {
+        "type": "after_consumption_cycle",
+        "cycle_multiplier": 1.5
+      },
+      "min_sample": 5,
+      "acquisition": {
+        "method": "공개 리뷰 수집(쿠팡·올리브영 상품 페이지)",
+        "granularity": "per_product_weekly",
+        "confidence": "confirmed"
+      }
+    }
+  ]
+}
