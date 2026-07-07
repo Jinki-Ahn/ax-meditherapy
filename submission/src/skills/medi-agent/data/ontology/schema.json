@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "BaseCamp Loop Ontology",
   "version": "0.4.0",
-  "description": "베이스캠프 루프의 온톨로지 스키마. 스코프 원칙(기획서 질문 2): '누구에게 얼마를'이라는 시딩 의사결정에 필요한 엔티티만 담는다 — 커뮤니티, 크리에이터, 제품(소구점 포함), 전환 신호. 실험 배치·추적 코드 등 운영 데이터는 온톨로지가 아니라 파이프라인 상태로 취급한다. 스키마는 카테고리 중립 — community.slot_type과 product.category를 교체하면 다른 커뮤니티·다른 제품군에서 같은 루프가 돈다(멀티브랜드 엔진).",
+  "description": "베이스캠프 루프의 온톨로지 스키마. 스코프 원칙(기획서 질문 2): '누구에게 얼마를'이라는 시딩 의사결정에 필요한 엔티티만 담는다 — 커뮤니티, 크리에이터, 제품(핵심 메시지 포함), 전환 신호. 실험 배치·추적 코드 등 운영 데이터는 온톨로지가 아니라 파이프라인 상태로 취급한다. 스키마는 카테고리 중립 — community.slot_type과 product.category를 교체하면 다른 커뮤니티·다른 제품군에서 같은 루프가 돈다(멀티브랜드 엔진).",
   "type": "object",
   "required": ["communities", "creators", "products", "conversion_signals"],
   "properties": {
@@ -108,7 +108,7 @@
     },
     "product": {
       "type": "object",
-      "description": "대상 제품. 소구점과 소모 주기를 속성으로 갖는다. 소모 주기는 재구매(후행 신호)를 언제 기다릴지 정한다(기획서 질문 3 ①). category 교체로 헤어·향수 등 확장.",
+      "description": "대상 제품. 핵심 메시지와 소모 주기를 속성으로 갖는다. 소모 주기는 재구매(후행 신호)를 언제 기다릴지 정한다(기획서 질문 3 ①). category 교체로 헤어·향수 등 확장.",
       "required": ["id", "name", "category", "appeal_points", "consumption_cycle_days"],
       "properties": {
         "id": { "type": "string", "pattern": "^pr_" },
@@ -121,13 +121,13 @@
         },
         "appeal_points": {
           "type": "array",
-          "description": "소구점. 크리에이터 브리프 생성(파이프라인 ③)의 재료. 커뮤니티 맥락과의 결합(예: '점호 전 정비 시간')은 온톨로지가 아니라 브리프 생성 시점에 claim × community로 만든다 — 제품 엔티티는 카테고리 중립을 유지(기획서 질문 3 ①).",
+          "description": "핵심 메시지. 크리에이터 브리프 생성(파이프라인 ③)의 재료. 커뮤니티 맥락과의 결합(예: '점호 전 정비 시간')은 온톨로지가 아니라 브리프 생성 시점에 claim × community로 만든다 — 제품 엔티티는 카테고리 중립을 유지(기획서 질문 3 ①).",
           "items": {
             "type": "object",
             "required": ["id", "claim"],
             "properties": {
               "id": { "type": "string", "pattern": "^ap_" },
-              "claim": { "type": "string", "description": "소구 문구(예: '샤워 후 1분 보습')." }
+              "claim": { "type": "string", "description": "메시지 문구(예: '샤워 후 1분 보습')." }
             }
           }
         },
