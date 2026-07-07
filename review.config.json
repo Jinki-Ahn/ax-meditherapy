@@ -1,0 +1,56 @@
+{
+  "_doc": "재사용 적대적 검토 하네스 설정. 산출물 glob·글자수 제한·문서-코드 대조 규칙을 여기 둔다(코드가 아니라 설정). 이식 시 이 파일만 바꾼다.",
+  "deliverables": {
+    "docs": {
+      "globs": ["*.md", "submission/**/*.md"],
+      "checks": ["char_limits", "dead_links", "citation_urls", "markers", "cross_doc"]
+    },
+    "code": {
+      "globs": [
+        "submission/src/skills/medi-agent/scripts/*.py",
+        "submission/src/tests/run_scenarios.py"
+      ],
+      "checks": ["py_compile", "run_scenarios"]
+    },
+    "sources": {
+      "from": "docs",
+      "checks": ["url_wellformed"]
+    }
+  },
+  "exclude": [
+    "reviews/**",
+    "logs/**",
+    "**/logs/**",
+    "**/__pycache__/**",
+    "**/.manifest.json",
+    "log-hooks/**",
+    "review-hooks/**",
+    "tools/**"
+  ],
+  "char_limits": {
+    "제출용_답변.md": {
+      "문항 1": 800,
+      "문항 2": 800,
+      "문항 3": 1000,
+      "문항 4": 800,
+      "문항 5": 800
+    },
+    "_near_limit_ratio": 0.95
+  },
+  "markers": ["TODO", "FIXME", "TBD", "???", "(미검증)", "초안 v"],
+  "cross_doc_assertions": {
+    "check_count": {
+      "_doc": "run_scenarios.py의 'X/Y checks passed' 실측 개수가 문서의 '체크 N개' 주장과 일치하는지.",
+      "run_scenarios": "submission/src/tests/run_scenarios.py",
+      "docs_claim_regex": "체크\\s*(\\d+)\\s*개|(\\d+)\\s*/\\s*\\d+\\s*checks"
+    },
+    "source_urls_match": {
+      "_doc": "기획서와 제출 답변의 출처 URL 집합이 일치하는지.",
+      "files": ["예선_기획서.md", "제출용_답변.md"]
+    }
+  },
+  "network": {
+    "url_liveness": false,
+    "_doc": "훅은 네트워크 I/O 금지. URL 실존 확인은 수동 --online 플래그로만."
+  }
+}

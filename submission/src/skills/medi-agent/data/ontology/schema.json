@@ -1,0 +1,212 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BaseCamp Loop Ontology",
+  "version": "0.4.0",
+  "description": "베이스캠프 루프의 온톨로지 스키마. 스코프 원칙(기획서 질문 2): '누구에게 얼마를'이라는 시딩 의사결정에 필요한 엔티티만 담는다 — 커뮤니티, 크리에이터, 제품(소구점 포함), 전환 신호. 실험 배치·추적 코드 등 운영 데이터는 온톨로지가 아니라 파이프라인 상태로 취급한다. 스키마는 카테고리 중립 — community.slot_type과 product.category를 교체하면 다른 커뮤니티·다른 제품군에서 같은 루프가 돈다(멀티브랜드 엔진).",
+  "type": "object",
+  "required": ["communities", "creators", "products", "conversion_signals"],
+  "properties": {
+    "communities": { "type": "array", "items": { "$ref": "#/$defs/community" } },
+    "creators": { "type": "array", "items": { "$ref": "#/$defs/creator" } },
+    "products": { "type": "array", "items": { "$ref": "#/$defs/product" } },
+    "conversion_signals": { "type": "array", "items": { "$ref": "#/$defs/conversion_signal" } }
+  },
+  "$defs": {
+    "community": {
+      "type": "object",
+      "description": "닫힌 고밀도 커뮤니티. 인플루언서 3층 스택의 2층(측정 대상: 내부 전파)과 3층(구매 접점: 처치 가능 지점)을 담는다. slot_type을 교체하면 다른 커뮤니티로 복제(기획서 질문 2).",
+      "required": ["id", "name", "slot_type", "measurement_unit", "wom_density", "touchpoints"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^com_" },
+        "name": { "type": "string" },
+        "slot_type": {
+          "type": "string",
+          "description": "커뮤니티 슬롯. 1호는 military. 확장 후보: diaspora_mart(미주 교민 상권), dorm(대학 기숙사) 등 — enum을 닫지 않는다.",
+          "examples": ["military", "diaspora_mart", "dorm"]
+        },
+        "measurement_unit": {
+          "type": "string",
+          "description": "2층 측정 단위(예: 부대). 처치/대조를 나누는 자연 단위의 이름.",
+          "examples": ["부대", "매장 상권", "기숙사 동"]
+        },
+        "wom_density": {
+          "type": "number", "minimum": 0, "maximum": 1,
+          "description": "입소문 밀도(2층 전파 강도). 커뮤니티 선정·스코어의 입력."
+        },
+        "population": { "type": "integer", "minimum": 0, "description": "커뮤니티 규모(명)." },
+        "contamination_risk": {
+          "type": "number", "minimum": 0, "maximum": 1,
+          "description": "처치/대조 분리를 깨뜨릴 위험(구조적 새는 정도 + 휴가·전출입·온라인 커뮤니티 교차 등 운영 중 오염). 실험 설계의 검정력 판단과 '판단 불가' 보고의 근거(기획서 질문 3 ②·말미)."
+        },
+        "post_exit_channel": {
+          "type": "string",
+          "description": "구성원이 커뮤니티를 떠난 뒤 재구매가 일어나는 채널(예: 쿠팡). LTV 추적 신호의 출처(기획서 질문 2 니치 근거 ③).",
+          "examples": ["coupang"]
+        },
+        "prior_score": {
+          "type": "number", "minimum": 0, "maximum": 1,
+          "description": "커뮤니티 사전 믿음(prior). 주간 루프가 갱신하는 것은 이 값이 아니라 조합(크리에이터×커뮤니티×제품) 스코어이며, 조합 스코어는 회전마다 생성·소멸하므로 온톨로지가 아니라 루프 상태 파일에 둔다(기획서 질문 3 ⑤). prior는 첫 배치 설계의 출발값."
+        },
+        "touchpoints": {
+          "type": "array",
+          "description": "3층 구매 접점(예: PX 지점). 처치/대조 배정이 가능한 유일한 층 — 샘플링·프로모션의 대상.",
+          "items": {
+            "type": "object",
+            "required": ["id", "name", "type", "pair_group"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^tp_" },
+              "name": { "type": "string" },
+              "type": { "type": "string", "examples": ["px_store"] },
+              "pair_group": {
+                "type": "string",
+                "description": "유사 지점 쌍 묶음 ID. 같은 pair_group 안에서 처치/대조를 배정한다(기획서 질문 3 ②)."
+              },
+              "weekly_traffic": { "type": "integer", "minimum": 0, "description": "주간 방문(셀스루 신호의 분모)." },
+              "carried_product_ids": {
+                "type": "array", "items": { "type": "string", "pattern": "^pr_" },
+                "description": "이 지점이 취급하는 제품 ID 목록(product 엔티티 참조). 빈 배열=미취급 — 해당 지점은 셀스루 신호 불가, 검색·코드 신호만 측정. 제품이 늘어도 스키마 변경 없이 확장(카테고리 중립)."
+              }
+            }
+          }
+        }
+      }
+    },
+    "creator": {
+      "type": "object",
+      "description": "3층 스택의 1층 — 시딩 대상. 전국 도달이라 지점 타겟이 불가하므로 시차(staggered) 설계로 식별한다. 현역 구성원은 영리 활동 금지 → commercially_eligible=false는 시딩 배정에서 하드 제외(기획서 질문 1).",
+      "required": ["id", "name", "creator_type", "platform", "reach_scope", "commercially_eligible"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^cr_" },
+        "name": { "type": "string" },
+        "creator_type": {
+          "type": "string",
+          "description": "크리에이터 유형(기획서 질문 1: 1층 정의).",
+          "examples": ["veteran_vlogger", "px_item_reviewer", "enlistment_prep"]
+        },
+        "platform": { "type": "string", "examples": ["youtube", "youtube_shorts", "instagram"] },
+        "reach_scope": {
+          "type": "string", "enum": ["national", "local"],
+          "description": "도달 범위. national이면 지점 배정 불가 → 시차 실험으로만 식별. local이면 지점 처치와 결합 가능."
+        },
+        "reach_size": { "type": "integer", "minimum": 0, "description": "구독자/팔로워 수." },
+        "avg_views": { "type": "integer", "minimum": 0, "description": "최근 영상 평균 조회수(도달의 실측치)." },
+        "commercially_eligible": {
+          "type": "boolean",
+          "description": "영리 활동(유료 시딩) 가능 여부. 현역 장병=false — 측정 대상(2층)이지 시딩 대상이 아니다."
+        },
+        "brand_safety_flags": {
+          "type": "array", "items": { "type": "string" },
+          "description": "브랜드 안전성 사유 플래그(예: past_controversy, competitor_partnership). commercially_eligible=true여도 플래그가 있으면 배정 시 검토 대상 — 시딩 불가 사유를 불리언 하나로 뭉개지 않기 위한 필드.",
+          "examples": [["past_controversy"], ["competitor_partnership"]]
+        },
+        "cost_per_seeding": { "type": "integer", "minimum": 0, "description": "1회 시딩 비용(원). 예산 재배분의 입력." },
+        "prior_score": {
+          "type": "number", "minimum": 0, "maximum": 1,
+          "description": "크리에이터 사전 믿음(prior). 조합 스코어(루프 상태)의 출발값 — community.prior_score 설명 참조."
+        }
+      }
+    },
+    "product": {
+      "type": "object",
+      "description": "대상 제품. 소구점과 소모 주기를 속성으로 갖는다. 소모 주기는 재구매(후행 신호)를 언제 기다릴지 정한다(기획서 질문 3 ①). category 교체로 헤어·향수 등 확장.",
+      "required": ["id", "name", "category", "appeal_points", "consumption_cycle_days"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^pr_" },
+        "name": { "type": "string" },
+        "category": { "type": "string", "examples": ["skincare", "haircare", "fragrance"] },
+        "price_krw": { "type": "integer", "minimum": 0 },
+        "consumption_cycle_days": {
+          "type": "integer", "minimum": 1,
+          "description": "소모 주기(일). 후행 신호(재구매) 관측 창 = 시딩 시점 + 이 값. 통상 30~90일."
+        },
+        "appeal_points": {
+          "type": "array",
+          "description": "소구점. 크리에이터 브리프 생성(파이프라인 ③)의 재료. 커뮤니티 맥락과의 결합(예: '점호 전 정비 시간')은 온톨로지가 아니라 브리프 생성 시점에 claim × community로 만든다 — 제품 엔티티는 카테고리 중립을 유지(기획서 질문 3 ①).",
+          "items": {
+            "type": "object",
+            "required": ["id", "claim"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^ap_" },
+              "claim": { "type": "string", "description": "소구 문구(예: '샤워 후 1분 보습')." }
+            }
+          }
+        },
+        "forbidden_claims": {
+          "type": "array", "items": { "type": "string" },
+          "description": "금지 표현(의약품 오인, 군 규정 저촉 등). 브리프 가드레일(파이프라인 ③, 기획서 '정직한 한계')."
+        },
+        "required_disclosure": {
+          "type": "array", "items": { "type": "string" },
+          "description": "의무 표기(협찬 고지 등). 브리프 생성 시 반드시 포함 — 기획서 질문 3 ③ '협찬 고지'의 구현.",
+          "examples": [["유료 광고 포함 표기"]]
+        },
+        "available_channels": {
+          "type": "array", "items": { "type": "string" },
+          "description": "구매 가능 채널. 검색대 신호(쿠팡·올리브영)와 셀스루 신호(PX)의 전제.",
+          "examples": [["coupang", "oliveyoung", "px"]]
+        }
+      }
+    },
+    "conversion_signal": {
+      "type": "object",
+      "description": "전환 신호의 정의. phase=leading(주간 루프의 입력: 검색 리프트·코드 첫 구매·PX 셀스루), phase=lagging(분기 루프의 입력: 재구매·후기). weight는 주간 스코어 산식에서의 가중치이며 분기 루프가 predictive_validity로 보정한다(이중 루프, 기획서 질문 3 ⑤). acquisition은 '이 신호를 실무에서 어떻게 채우나'를 강제하는 필드 — 획득 경로가 없는 신호는 온톨로지에 넣을 수 없다.",
+      "required": ["id", "name", "phase", "source", "measurement", "window", "acquisition"],
+      "if": { "properties": { "measurement": { "const": "treatment_vs_control_lift" } } },
+      "then": { "required": ["control_definition"] },
+      "properties": {
+        "id": { "type": "string", "pattern": "^sig_" },
+        "name": { "type": "string" },
+        "phase": { "type": "string", "enum": ["leading", "lagging"] },
+        "source": {
+          "type": "string",
+          "description": "신호 출처.",
+          "examples": ["search_trend", "tracking_code", "px_sellthrough", "repurchase", "review"]
+        },
+        "measurement": {
+          "type": "string",
+          "description": "측정 방식. 리프트 신호는 반드시 처치 vs 대조 비교로 정의한다(절대치 아님).",
+          "examples": ["treatment_vs_control_lift", "count", "rate"]
+        },
+        "window": {
+          "type": "object",
+          "description": "관측 창. leading은 고정 일수, lagging은 제품 소모 주기 기준 상대 창.",
+          "properties": {
+            "type": { "type": "string", "enum": ["fixed_days", "after_consumption_cycle"] },
+            "days": { "type": "integer", "minimum": 1, "description": "type=fixed_days일 때 관측 일수." },
+            "cycle_multiplier": { "type": "number", "minimum": 0, "description": "type=after_consumption_cycle일 때 소모 주기의 배수(예: 1.5 = 주기의 1.5배까지 기다림)." }
+          }
+        },
+        "weight": {
+          "type": "number", "minimum": 0, "maximum": 1,
+          "description": "주간 루프 스코어 산식에서의 가중치. lagging 신호는 weight를 갖지 않는다(주간 산식에 직접 들어가지 않고 분기 보정에만 쓰임)."
+        },
+        "predictive_validity": {
+          "type": ["number", "null"], "minimum": -1, "maximum": 1,
+          "description": "이 선행 신호가 재구매를 얼마나 예측했는가(분기 루프가 갱신). null=아직 후행 데이터 미도착."
+        },
+        "min_sample": {
+          "type": "integer", "minimum": 1,
+          "description": "판단에 필요한 최소 표본. 미달이면 스코어 갱신 대신 '판단 불가 + 필요한 데이터'를 보고한다(기획서 질문 3 말미)."
+        },
+        "control_definition": {
+          "type": "string",
+          "description": "measurement=treatment_vs_control_lift일 때 필수. '대조'가 무엇인지 명시(쌍 지점의 동일 기간? 시차 설계의 미게시 기간?). 대조 정의 없는 리프트 신호는 스키마 검증에서 거부된다."
+        },
+        "acquisition": {
+          "type": "object",
+          "description": "신호 데이터의 획득 경로(2026-07 리서치로 확인된 현실 경로 기준 — ONTOLOGY.md '데이터 획득 경로 리서치' 참조). confidence=proxy면 근사의 가정을 method에 함께 적는다.",
+          "required": ["method", "granularity", "confidence"],
+          "properties": {
+            "method": { "type": "string", "description": "획득 방법(예: 위탁판매 정산 리포트, 부대별 발주량 프록시, 추적 코드 집계)." },
+            "granularity": { "type": "string", "description": "얻을 수 있는 단위(예: store_weekly, national_monthly, per_code).", "examples": ["store_weekly", "national_monthly", "per_code"] },
+            "confidence": {
+              "type": "string", "enum": ["confirmed", "proxy", "negotiation_required"],
+              "description": "confirmed=제도적으로 확보 확실, proxy=가정 하 근사, negotiation_required=협의 조건부(확보 미보장)."
+            },
+            "fallback": { "type": "string", "description": "1차 경로 실패 시 대안 경로." }
+          }
+        }
+      }
+    }
+  }
+}

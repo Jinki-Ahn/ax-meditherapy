@@ -1,0 +1,243 @@
+{
+  "_comment": "모의 시드 데이터. 실측이 아닌 예시 인스턴스이며, 시뮬레이션(크리에이터 30 × 커뮤니티 12단위)은 모의 데이터 생성기가 이 패턴으로 확장 생성한다. 이름·수치는 전부 가상.",
+  "communities": [
+    {
+      "id": "com_mil_01",
+      "name": "○○사단 생활권 (가상)",
+      "slot_type": "military",
+      "measurement_unit": "부대",
+      "wom_density": 0.8,
+      "population": 9000,
+      "contamination_risk": 0.2,
+      "post_exit_channel": "coupang",
+      "prior_score": 0.5,
+      "touchpoints": [
+        {
+          "id": "tp_px_011",
+          "name": "PX A지점",
+          "type": "px_store",
+          "pair_group": "pg_대형_수도권",
+          "weekly_traffic": 2400,
+          "carried_product_ids": [
+            "pr_001"
+          ]
+        },
+        {
+          "id": "tp_px_012",
+          "name": "PX B지점",
+          "type": "px_store",
+          "pair_group": "pg_대형_수도권",
+          "weekly_traffic": 2200,
+          "carried_product_ids": [
+            "pr_001"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "com_mil_02",
+      "name": "△△사단 생활권 (가상)",
+      "slot_type": "military",
+      "measurement_unit": "부대",
+      "wom_density": 0.75,
+      "population": 7000,
+      "contamination_risk": 0.15,
+      "post_exit_channel": "coupang",
+      "prior_score": 0.5,
+      "touchpoints": [
+        {
+          "id": "tp_px_021",
+          "name": "PX C지점",
+          "type": "px_store",
+          "pair_group": "pg_중형_전방",
+          "weekly_traffic": 1300,
+          "carried_product_ids": [
+            "pr_001"
+          ]
+        },
+        {
+          "id": "tp_px_022",
+          "name": "PX D지점",
+          "type": "px_store",
+          "pair_group": "pg_중형_전방",
+          "weekly_traffic": 1250,
+          "carried_product_ids": []
+        }
+      ]
+    }
+  ],
+  "creators": [
+    {
+      "id": "cr_001",
+      "name": "전역자 브이로그 K (가상)",
+      "creator_type": "veteran_vlogger",
+      "platform": "youtube",
+      "reach_scope": "national",
+      "reach_size": 180000,
+      "avg_views": 45000,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 1500000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_002",
+      "name": "PX 꿀템 리뷰어 P (가상)",
+      "creator_type": "px_item_reviewer",
+      "platform": "youtube_shorts",
+      "reach_scope": "national",
+      "reach_size": 60000,
+      "avg_views": 120000,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 600000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_003",
+      "name": "현역 상병 J (가상 — 배정 불가 예시)",
+      "creator_type": "active_duty",
+      "platform": "instagram",
+      "reach_scope": "local",
+      "reach_size": 3000,
+      "avg_views": 1500,
+      "commercially_eligible": false,
+      "brand_safety_flags": [
+        "active_duty_no_commerce"
+      ],
+      "cost_per_seeding": 0,
+      "prior_score": 0.0
+    }
+  ],
+  "products": [
+    {
+      "id": "pr_001",
+      "name": "옴므 올인원 크림 (가상)",
+      "category": "skincare",
+      "price_krw": 18000,
+      "consumption_cycle_days": 45,
+      "appeal_points": [
+        {
+          "id": "ap_001",
+          "claim": "세안 후 이거 하나로 끝"
+        },
+        {
+          "id": "ap_002",
+          "claim": "환절기 각질 진정"
+        }
+      ],
+      "forbidden_claims": [
+        "피부 질환 치료",
+        "여드름 완치",
+        "부대·군 공식 추천 암시"
+      ],
+      "required_disclosure": [
+        "유료 광고 포함 표기",
+        "공정위 추천·보증 심사지침 준수 문구"
+      ],
+      "available_channels": [
+        "coupang",
+        "oliveyoung",
+        "px"
+      ]
+    }
+  ],
+  "conversion_signals": [
+    {
+      "id": "sig_search",
+      "name": "검색 리프트",
+      "phase": "leading",
+      "source": "search_trend",
+      "measurement": "treatment_vs_control_lift",
+      "window": {
+        "type": "fixed_days",
+        "days": 14
+      },
+      "weight": 0.4,
+      "predictive_validity": null,
+      "min_sample": 4,
+      "acquisition": {
+        "method": "검색 트렌드 API(네이버 데이터랩 등) 지역 단위 시계열. 부대 단위 분해는 불가 — 지역·시차 조합으로 근사",
+        "granularity": "region_daily",
+        "confidence": "proxy",
+        "fallback": "쿠팡 검색량(브랜드 스토어 유입 키워드) 시계열"
+      },
+      "control_definition": "시차 설계 — 게시가 아직 닿지 않은 기간(pre-period) 및 후발 게시 지역의 동일 검색어 시계열"
+    },
+    {
+      "id": "sig_code",
+      "name": "추적 코드 첫 구매",
+      "phase": "leading",
+      "source": "tracking_code",
+      "measurement": "count",
+      "window": {
+        "type": "fixed_days",
+        "days": 14
+      },
+      "weight": 0.35,
+      "predictive_validity": null,
+      "min_sample": 10,
+      "acquisition": {
+        "method": "크리에이터별 고유 추적 코드(쿠폰/링크) 사용 집계 — 자사 확보 데이터",
+        "granularity": "per_code_daily",
+        "confidence": "confirmed"
+      }
+    },
+    {
+      "id": "sig_sellthrough",
+      "name": "PX 셀스루",
+      "phase": "leading",
+      "source": "px_sellthrough",
+      "measurement": "treatment_vs_control_lift",
+      "window": {
+        "type": "fixed_days",
+        "days": 14
+      },
+      "weight": 0.25,
+      "predictive_validity": null,
+      "min_sample": 2,
+      "acquisition": {
+        "method": "부대별 발주·재발주량 프록시(위탁판매 구조상 부대 단위 발주 + 낮은 재고율 → 발주≈판매 가정). 품목별 전국 정산 리포트(월별, 확보 확실)로 총량 보정",
+        "granularity": "store_weekly",
+        "confidence": "proxy",
+        "fallback": "국군복지단 협의 시 지점별 판매 리포트(퇴출심사에서 상위 20개점 실적 산출 전례 있음 — 협상 조건부)"
+      },
+      "control_definition": "pair_group 내 대조 지점(프로모션·샘플링 미실시)의 동일 기간 발주량"
+    },
+    {
+      "id": "sig_repurchase",
+      "name": "재구매",
+      "phase": "lagging",
+      "source": "repurchase",
+      "measurement": "rate",
+      "window": {
+        "type": "after_consumption_cycle",
+        "cycle_multiplier": 1.5
+      },
+      "min_sample": 20,
+      "acquisition": {
+        "method": "추적 코드 재사용 + 자사 판매 채널(쿠팡 스토어 등) 주문 데이터의 재구매 식별",
+        "granularity": "per_customer",
+        "confidence": "proxy",
+        "fallback": "재구매 할인 코드 발행으로 식별률 보강"
+      }
+    },
+    {
+      "id": "sig_review",
+      "name": "후기",
+      "phase": "lagging",
+      "source": "review",
+      "measurement": "count",
+      "window": {
+        "type": "after_consumption_cycle",
+        "cycle_multiplier": 1.5
+      },
+      "min_sample": 5,
+      "acquisition": {
+        "method": "공개 리뷰 수집(쿠팡·올리브영 상품 페이지)",
+        "granularity": "per_product_weekly",
+        "confidence": "confirmed"
+      }
+    }
+  ]
+}

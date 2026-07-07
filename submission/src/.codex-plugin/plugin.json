@@ -1,0 +1,6 @@
+{
+  "name": "medi-agent",
+  "version": "0.1.0",
+  "description": "메디테라피 AX 플러그인 — (아이디어 확정 후 한 줄 설명 작성)",
+  "skills": "./skills/"
+}

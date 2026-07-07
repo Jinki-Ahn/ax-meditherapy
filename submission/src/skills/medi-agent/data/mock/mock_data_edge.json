@@ -1,0 +1,115 @@
+{
+  "_comment": "적대(edge) 데이터셋 — 살충제 패러독스 대응. 생성기(generate_mock_data.py)가 만들지 않는 구조로 검증 하네스의 반대쪽 분기를 강제한다: pg_solo(지점 1곳뿐인 쌍), pg_cross(두 지점이 서로 다른 제품만 취급 → 공통 제품 없음), pg_none(둘 다 미취급) → 배정 가능 쌍 0, 셀스루 신호 자체가 없는 신호 셋. 스키마에는 적합하며, 기대 결과는 '실험 설계 가능성 FAIL(배정 가능 0)' 보고다.",
+  "communities": [
+    {
+      "id": "com_edge_01",
+      "name": "엣지 커뮤니티 1 (가상)",
+      "slot_type": "military",
+      "measurement_unit": "부대",
+      "wom_density": 0.7,
+      "population": 6000,
+      "contamination_risk": 0.5,
+      "post_exit_channel": "coupang",
+      "prior_score": 0.5,
+      "touchpoints": [
+        { "id": "tp_edge_011", "name": "PX 솔로지점", "type": "px_store", "pair_group": "pg_solo", "weekly_traffic": 900, "carried_product_ids": ["pr_001"] },
+        { "id": "tp_edge_012", "name": "PX 교차지점 A", "type": "px_store", "pair_group": "pg_cross", "weekly_traffic": 1000, "carried_product_ids": ["pr_001"] }
+      ]
+    },
+    {
+      "id": "com_edge_02",
+      "name": "엣지 커뮤니티 2 (가상)",
+      "slot_type": "military",
+      "measurement_unit": "부대",
+      "wom_density": 0.6,
+      "population": 5000,
+      "contamination_risk": 0.4,
+      "post_exit_channel": "coupang",
+      "prior_score": 0.5,
+      "touchpoints": [
+        { "id": "tp_edge_021", "name": "PX 교차지점 B", "type": "px_store", "pair_group": "pg_cross", "weekly_traffic": 1050, "carried_product_ids": ["pr_002"] },
+        { "id": "tp_edge_022", "name": "PX 미취급 A", "type": "px_store", "pair_group": "pg_none", "weekly_traffic": 700, "carried_product_ids": [] },
+        { "id": "tp_edge_023", "name": "PX 미취급 B", "type": "px_store", "pair_group": "pg_none", "weekly_traffic": 720, "carried_product_ids": [] }
+      ]
+    }
+  ],
+  "creators": [
+    {
+      "id": "cr_edge_01",
+      "name": "엣지 크리에이터 1 (가상)",
+      "creator_type": "veteran_vlogger",
+      "platform": "youtube",
+      "reach_scope": "national",
+      "reach_size": 50000,
+      "avg_views": 15000,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 500000,
+      "prior_score": 0.5
+    },
+    {
+      "id": "cr_edge_02",
+      "name": "엣지 크리에이터 2 (가상)",
+      "creator_type": "px_item_reviewer",
+      "platform": "youtube_shorts",
+      "reach_scope": "national",
+      "reach_size": 20000,
+      "avg_views": 40000,
+      "commercially_eligible": true,
+      "brand_safety_flags": [],
+      "cost_per_seeding": 300000,
+      "prior_score": 0.5
+    }
+  ],
+  "products": [
+    {
+      "id": "pr_001",
+      "name": "옴므 올인원 크림 (가상)",
+      "category": "skincare",
+      "price_krw": 18000,
+      "consumption_cycle_days": 45,
+      "appeal_points": [{ "id": "ap_001", "claim": "세안 후 이거 하나로 끝" }],
+      "forbidden_claims": ["피부 질환 치료"],
+      "required_disclosure": ["유료 광고 포함 표기"],
+      "available_channels": ["coupang", "px"]
+    },
+    {
+      "id": "pr_002",
+      "name": "쿨링 폼 클렌저 (가상)",
+      "category": "skincare",
+      "price_krw": 12000,
+      "consumption_cycle_days": 60,
+      "appeal_points": [{ "id": "ap_003", "claim": "훈련 후 유분 한 번에" }],
+      "forbidden_claims": ["피부 질환 치료"],
+      "required_disclosure": ["유료 광고 포함 표기"],
+      "available_channels": ["coupang", "px"]
+    }
+  ],
+  "conversion_signals": [
+    {
+      "id": "sig_search",
+      "name": "검색 리프트",
+      "phase": "leading",
+      "source": "search_trend",
+      "measurement": "treatment_vs_control_lift",
+      "window": { "type": "fixed_days", "days": 14 },
+      "weight": 0.6,
+      "predictive_validity": null,
+      "min_sample": 4,
+      "control_definition": "시차 설계 — 게시가 아직 닿지 않은 기간(pre-period)의 동일 검색어 시계열",
+      "acquisition": { "method": "검색 트렌드 API 지역 단위 시계열", "granularity": "region_daily", "confidence": "proxy" }
+    },
+    {
+      "id": "sig_code",
+      "name": "추적 코드 첫 구매",
+      "phase": "leading",
+      "source": "tracking_code",
+      "measurement": "count",
+      "window": { "type": "fixed_days", "days": 14 },
+      "weight": 0.4,
+      "predictive_validity": null,
+      "min_sample": 10,
+      "acquisition": { "method": "크리에이터별 고유 추적 코드 사용 집계", "granularity": "per_code_daily", "confidence": "confirmed" }
+    }
+  ]
+}
