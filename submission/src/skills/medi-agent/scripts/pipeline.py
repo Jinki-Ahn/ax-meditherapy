@@ -24,7 +24,10 @@ import random
 import statistics
 from pathlib import Path
 
-import jsonschema
+try:
+    import jsonschema
+except ImportError:  # 외부 패키지 없는 환경 — 동봉된 최소 검증기로 대체
+    import schema_lite as jsonschema
 
 import signal_adapter_mock as adapter
 

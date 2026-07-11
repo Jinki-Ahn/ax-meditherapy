@@ -46,6 +46,34 @@ src/skills/medi-agent/
 - 브랜드 안전성 플래그 크리에이터 → 자동 배정 제외, 인간 판단 대기 목록으로 분리
 - 분기 보정 표본 부족(재구매 3건 미만) 또는 신호 무변동 → 가중치 유지, 판정 보류 보고
 
+## Codex 플러그인으로 설치·실행
+
+`src/`가 플러그인 루트다 — `src/.codex-plugin/plugin.json`(매니페스트)이 `./skills/`의 스킬을 가리키고, Codex는 `src/skills/medi-agent/SKILL.md`를 스킬로 인식한다.
+
+**방법 1 — 로컬 마켓플레이스로 플러그인 설치** ([공식 문서](https://developers.openai.com/codex/plugins/build)의 로컬 테스트 절차):
+
+작업할 저장소 루트에 `.agents/plugins/marketplace.json`을 만들고 이 제출물의 `src/` 경로를 가리킨다. 예: 저장소 안에 `plugins/medi-agent`로 `src/`의 내용을 복사했다면 —
+
+```json
+{
+  "name": "local-repo",
+  "plugins": [
+    {
+      "name": "medi-agent",
+      "source": { "source": "local", "path": "./plugins/medi-agent" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Productivity"
+    }
+  ]
+}
+```
+
+Codex를 재시작한 뒤 플러그인 목록에서 설치하면 스킬이 활성화된다.
+
+**방법 2 — 스킬만 바로 얹기** (빠른 확인용): `src/skills/medi-agent/`를 작업 디렉토리의 `.agents/skills/medi-agent/`로 복사하면 Codex가 스킬 탐색 경로에서 바로 발견한다.
+
+설치 후 프롬프트에서 `$medi-agent`로 명시 호출하거나, "이번 주 시딩 배치 설계해줘" 같은 요청으로 암시 호출된다. 스킬이 호출되면 SKILL.md의 절차에 따라 `scripts/pipeline.py`를 실행한다 — 스크립트는 자기 위치 기준으로 데이터를 찾으므로 어느 작업 디렉토리에서도 동작한다.
+
 ## 실행 (데모)
 
 ```bash
@@ -69,7 +97,7 @@ python3 src/skills/medi-agent/scripts/verify_harness.py
 python3 src/skills/medi-agent/scripts/test_decision_coverage.py --coverage
 ```
 
-의존성: Python 3.10+, `pip install jsonschema` (커버리지 측정 시 `coverage` 추가).
+의존성: Python 3.10+ 만으로 동작한다. `jsonschema`가 설치돼 있으면 그것을 쓰고, 없으면 동봉된 최소 검증기(`scripts/schema_lite.py`)로 자동 폴백한다(지원 키워드 밖의 스키마는 통과시키지 않고 오류를 내는 안전한 폴백). 커버리지 측정 시에만 `pip install coverage`.
 
 ## 검증 (문항 5와 동일)
 
