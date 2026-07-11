@@ -9,7 +9,7 @@ description: 주간 시딩 의사결정 시점에 실행되는 시딩 실험 운
 
 ## 절차 (5단계)
 
-모든 단계는 `scripts/pipeline.py`가 구현한다. 주간 실행: `python3 scripts/pipeline.py --state-dir <상태 디렉토리> [--data <온톨로지 데이터>] [--budget <원>]`
+모든 단계는 이 스킬 디렉토리의 `scripts/pipeline.py`가 구현한다. 주간 실행: `python3 <스킬 디렉토리>/scripts/pipeline.py --state-dir <상태 디렉토리> [--data <온톨로지 데이터>] [--budget <원>]`. 스크립트는 자기 위치 기준으로 데이터를 찾으므로 어느 작업 디렉토리에서 호출해도 된다. 요구 환경은 Python 3.10+ 뿐이다(`jsonschema`가 있으면 사용하고, 없으면 동봉된 `scripts/schema_lite.py`로 자동 폴백).
 
 1. **온톨로지 로드** — `data/ontology/schema.json`으로 입력 데이터를 검증하고 4개 엔티티와 루프 상태(조합 스코어)를 읽는다. 스키마 부적합이면 즉시 중단.
 2. **실험 설계(처치 이원화)** — 유사 PX 지점 쌍(pair_group) 안에서 처치/대조를 배정하고, 전국 도달 크리에이터는 게시 시차(0·1·2주)로 식별한다. 조합별 고유 추적 코드를 발급한다. 검정력 미달(배정 쌍 < min_sample) 신호는 제외하고 사유를 보고한다.
@@ -43,4 +43,4 @@ description: 주간 시딩 의사결정 시점에 실행되는 시딩 실험 운
 - 분기 보정 표본 부족(재구매 3건 미만)·신호 무변동 → 가중치 유지 + 판정 보류 보고
 - 처치/대조 배정 전면 불가(적대 케이스) → 지점 신호 없이 강등 진행하되 제한 사항을 증거 패키지에 명시
 
-검증: `scripts/verify_harness.py`(인과 검출·CPA 학습곡선·프록시 보정 실측), `scripts/test_decision_coverage.py`(결정 커버리지 + 브랜치 커버리지). 세부는 저장소 루트 `README.md`와 `data/verification/report.md`.
+검증: `scripts/verify_harness.py`(인과 검출·CPA 학습곡선·프록시 보정 실측), `scripts/test_decision_coverage.py`(결정 커버리지 + 브랜치 커버리지). 세부 수치는 `data/verification/report.md`.
