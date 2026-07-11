@@ -4,7 +4,7 @@
   ① 온톨로지 로드    스키마 검증 + 조합 스코어(루프 상태) 로드
   ② 실험 설계        처치 이원화 — 쌍 지점 처치/대조 배정 + 크리에이터 시차(staggered)
                      설계, 조합별 추적 코드 발급, 검정력 미달 신호는 제외·사유 보고
-  ③ 브리프 생성      소구점 × 커뮤니티 맥락 결합(온톨로지가 아니라 이 시점에),
+  ③ 브리프 생성      핵심 메시지 × 커뮤니티 맥락 결합(온톨로지가 아니라 이 시점에),
                      금지 표현·협찬 고지·추적 코드 포함
   ④ 신호 수집        signal_adapter_mock(모의) — 실서비스에서 acquisition 경로로 교체
   ⑤ 이중 루프        주간: 선행 신호 → 조합 스코어 EMA 갱신 → 예산 재배분(밴딧식)
@@ -24,7 +24,10 @@ import random
 import statistics
 from pathlib import Path
 
-import jsonschema
+try:
+    import jsonschema
+except ImportError:  # 외부 패키지 없는 환경 — 동봉된 최소 검증기로 대체
+    import schema_lite as jsonschema
 
 import signal_adapter_mock as adapter
 
@@ -176,14 +179,14 @@ def design_experiment(data, state, product, rng):
 
 # ── ③ 브리프 생성 ────────────────────────────────────────────────
 
-CONTEXT_BY_SLOT = {  # 소구점 × 커뮤니티 맥락 결합은 온톨로지가 아니라 여기서 일어난다
-    "military": "점호 전 짧은 정비 시간·야외 훈련 후 회복 같은 부대 생활 장면에 소구점을 얹을 것",
+CONTEXT_BY_SLOT = {  # 핵심 메시지 × 커뮤니티 맥락 결합은 온톨로지가 아니라 여기서 일어난다
+    "military": "점호 전 짧은 정비 시간·야외 훈련 후 회복 같은 부대 생활 장면에 핵심 메시지를 얹을 것",
 }
 
 
 def generate_briefs(design, data, product, out_dir):
     slot_types = {c["slot_type"] for c in data["communities"]}
-    context = " / ".join(CONTEXT_BY_SLOT.get(s, "커뮤니티의 일상 장면에 소구점을 얹을 것") for s in sorted(slot_types))
+    context = " / ".join(CONTEXT_BY_SLOT.get(s, "커뮤니티의 일상 장면에 핵심 메시지를 얹을 것") for s in sorted(slot_types))
     brief_dir = out_dir / "briefs"
     brief_dir.mkdir(parents=True, exist_ok=True)
     for c in design["selected"]:
@@ -192,13 +195,13 @@ def generate_briefs(design, data, product, out_dir):
             f"- 제품: {product['name']} ({product['id']})",
             f"- 게시 주차: W{design['week'] + design['offsets'][c['id']]:02d} (시차 설계 — 임의 변경 금지)",
             f"- 추적 코드: {design['codes'][c['id']]} (콘텐츠·댓글 고정 표기)",
-            f"- 소구점: " + " / ".join(ap["claim"] for ap in product["appeal_points"]),
+            f"- 핵심 메시지: " + " / ".join(ap["claim"] for ap in product["appeal_points"]),
             f"- 커뮤니티 맥락: {context}",
             f"- 금지 표현: " + ", ".join(product.get("forbidden_claims", [])),
             f"- 의무 표기(협찬 고지): " + ", ".join(product.get("required_disclosure", [])),
         ]
         (brief_dir / f"{c['id']}.md").write_text("\n".join(lines))
-    print(f"③ 브리프 생성 {len(design['selected'])}건 — 소구점×커뮤니티 맥락·금지 표현·협찬 고지·추적 코드 포함")
+    print(f"③ 브리프 생성 {len(design['selected'])}건 — 핵심 메시지×커뮤니티 맥락·금지 표현·협찬 고지·추적 코드 포함")
 
 
 # ── ④ 신호 수집 ─────────────────────────────────────────────────

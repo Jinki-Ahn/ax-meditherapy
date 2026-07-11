@@ -1,6 +1,6 @@
 {
   "name": "medi-agent",
   "version": "0.1.0",
-  "description": "메디테라피 AX 플러그인 — (아이디어 확정 후 한 줄 설명 작성)",
+  "description": "베이스캠프 루프(BaseCamp Loop) — 인플루언서 시딩을 매주 반복되는 처치/대조 인과 실험으로 설계하고, 신호 실측으로 예산을 재배분하는 시딩 운영 플러그인 (메디테라피)",
   "skills": "./skills/"
 }

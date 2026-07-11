@@ -6,6 +6,7 @@
 
 ```
 src/skills/medi-agent/
+├── SKILL.md                     # 스킬 정의: 5단계 절차·도메인 지식·자동/인간 판단 경계
 ├── data/
 │   ├── ontology/
 │   │   ├── schema.json          # 온톨로지 스키마(v0.4): 커뮤니티·크리에이터·제품·전환 신호
@@ -21,7 +22,7 @@ src/skills/medi-agent/
     ├── validate_ontology.py     # 온톨로지 구동 검증(6개 검사)
     ├── pipeline.py              # 5단계 파이프라인 본체
     ├── signal_adapter_mock.py   # 모의 신호 어댑터(실서비스에서 교체되는 유일한 층)
-    ├── test_decision_coverage.py# 결정 커버리지 테스트 스위트(20+케이스)
+    ├── test_decision_coverage.py # 결정 커버리지 테스트 스위트(20+케이스)
     └── verify_harness.py        # 검증 하네스(인과 검출·CPA·프록시 보정 실측)
 ```
 
@@ -31,7 +32,7 @@ src/skills/medi-agent/
 
 1. **온톨로지 로드** — 스키마 검증 후 4개 엔티티와 루프 상태(조합 스코어)를 읽는다.
 2. **실험 설계(처치 이원화)** — 유사 PX 지점 쌍 안에서 처치/대조를 배정하고, 전국 도달 크리에이터는 게시 시차(staggered)로 식별한다. 조합별 고유 추적 코드 발급. 검정력 미달 신호는 제외하고 사유를 보고한다.
-3. **브리프 생성** — 소구점 × 커뮤니티 맥락 결합(온톨로지가 아니라 이 시점에 일어남), 금지 표현·협찬 고지·추적 코드 포함.
+3. **브리프 생성** — 핵심 메시지 × 커뮤니티 맥락 결합(온톨로지가 아니라 이 시점에 일어남), 금지 표현·협찬 고지·추적 코드 포함.
 4. **신호 수집** — 선행(검색 리프트·코드 첫 구매·PX 셀스루) / 후행(재구매·후기). 예선은 모의 어댑터, 실서비스는 온톨로지의 `acquisition` 필드에 명시된 경로(위탁판매 정산 리포트, 부대별 발주량 프록시, 추적 코드 집계)로 어댑터만 교체한다.
 5. **이중 루프** — 주간: 선행 신호로 조합(크리에이터×커뮤니티×제품) 스코어를 EMA 갱신하고 원당 기대 성과 기준으로 예산 재배분(탐색 슬롯 1명 포함). 분기: 도착한 재구매와 선행 신호의 상관(유의성 게이트 + 표본 비례 수축)으로 선행 가중치를 보정한다. 크리에이터 귀속이 불가능한 커뮤니티 단위 신호는 검정을 보류한다(`acquisition.granularity` 기준).
 
@@ -44,6 +45,34 @@ src/skills/medi-agent/
 - 시딩 가능(영리 활동 허용) 크리에이터 없음 / 예산 내 선정 가능 후보 없음 → 실행 거부(exit 2)
 - 브랜드 안전성 플래그 크리에이터 → 자동 배정 제외, 인간 판단 대기 목록으로 분리
 - 분기 보정 표본 부족(재구매 3건 미만) 또는 신호 무변동 → 가중치 유지, 판정 보류 보고
+
+## Codex 플러그인으로 설치·실행
+
+`src/`가 플러그인 루트다 — `src/.codex-plugin/plugin.json`(매니페스트)이 `./skills/`의 스킬을 가리키고, Codex는 `src/skills/medi-agent/SKILL.md`를 스킬로 인식한다.
+
+**방법 1 — 로컬 마켓플레이스로 플러그인 설치** ([공식 문서](https://developers.openai.com/codex/plugins/build)의 로컬 테스트 절차):
+
+작업할 저장소 루트에 `.agents/plugins/marketplace.json`을 만들고 이 제출물의 `src/` 경로를 가리킨다. 예: 저장소 안에 `plugins/medi-agent`로 `src/`의 내용을 복사했다면 —
+
+```json
+{
+  "name": "local-repo",
+  "plugins": [
+    {
+      "name": "medi-agent",
+      "source": { "source": "local", "path": "./plugins/medi-agent" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Productivity"
+    }
+  ]
+}
+```
+
+Codex를 재시작한 뒤 플러그인 목록에서 설치하면 스킬이 활성화된다.
+
+**방법 2 — 스킬만 바로 얹기** (빠른 확인용): `src/skills/medi-agent/`를 작업 디렉토리의 `.agents/skills/medi-agent/`로 복사하면 Codex가 스킬 탐색 경로에서 바로 발견한다.
+
+설치 후 프롬프트에서 `$medi-agent`로 명시 호출하거나, "이번 주 시딩 배치 설계해줘" 같은 요청으로 암시 호출된다. 스킬이 호출되면 SKILL.md의 절차에 따라 `scripts/pipeline.py`를 실행한다 — 스크립트는 자기 위치 기준으로 데이터를 찾으므로 어느 작업 디렉토리에서도 동작한다.
 
 ## 실행 (데모)
 
@@ -68,7 +97,7 @@ python3 src/skills/medi-agent/scripts/verify_harness.py
 python3 src/skills/medi-agent/scripts/test_decision_coverage.py --coverage
 ```
 
-의존성: Python 3.10+, `pip install jsonschema` (커버리지 측정 시 `coverage` 추가).
+의존성: Python 3.10+ 만으로 동작한다. `jsonschema`가 설치돼 있으면 그것을 쓰고, 없으면 동봉된 최소 검증기(`scripts/schema_lite.py`)로 자동 폴백한다(지원 키워드 밖의 스키마는 통과시키지 않고 오류를 내는 안전한 폴백). 커버리지 측정 시에만 `pip install coverage`.
 
 ## 검증 (문항 5와 동일)
 
